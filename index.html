@@ -3,19 +3,59 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Weather</title>
+    <title>Document</title>
     <!-- UIkit CSS -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/uikit@3.4.4/dist/css/uikit.min.css"
     />
-    <script src="js/uikit.min.js"></script>
-    <script src="js/uikit-icons.min.js"></script>
-  </head>
 
+    <!-- UIkit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.4.4/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.4.4/dist/js/uikit-icons.min.js"></script>
+  </head>
   <body>
-    <!-- <input id="user-location" type="text">Please select location</input>
-    <input id="state" type="text">State</input> -->
+    <div class="uk-child-width-1-3@m uk-grid-small uk-grid-match" uk-grid>
+      <div>
+        <div class="uk-card uk-card-default uk-card-body">
+          <h3 class="uk-card-title">Default</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+        </div>
+      </div>
+      <div>
+        <div class="uk-card uk-card-primary uk-card-body">
+          <h3 class="uk-card-title">Primary</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+        </div>
+      </div>
+      <div>
+        <div class="uk-card uk-card-secondary uk-card-body">
+          <h3 class="uk-card-title">Secondary</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
+      <h3 class="uk-card-title">Default</h3>
+      <p>
+        Lorem ipsum <a href="#">dolor</a> sit amet, consectetur adipiscing elit,
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      </p>
+    </div> -->
+
+    <div class="uk-card uk-card-body">
+      <h3 class="uk-card-title">Temperatura:</h3>
+    </div>
+
+    <div class="uk-card uk-card-body">
+      <div class="city"></div>
+      <div class="wind"></div>
+      <div class="humidity"></div>
+      <div class="temp"></div>
+      <div class="uv"></div>
+      <h3 class="uk-card-title">Wind:</h3>
+    </div>
 
     <form id="userSearch">
       <label for="user-location">Search for a city</label>
@@ -23,46 +63,41 @@
       <label for="user-state">State</label>
       <input type="text" id="user-state" /><br />
       <!-- This button will trigger our AJAX call -->
-      <input id="user-search" type="submit" value="User Search" />
+      <input type="submit" value="User Search" />
     </form>
 
-    <div class="city" id="userSearch"></div>
-    <div class="wind"></div>
-    <div class="humidity"></div>
-    <div class="temp"></div>
+    <!-- <div class="uk-card uk-card-body">
+      <h3 class="uk-card-title"></h3>
+    </div>
 
+    <div
+      class="uk-grid-small uk-child-width-1-4@s uk-flex-center uk-text-center"
+      uk-grid
+    >
+      <div>
+        <div class="uk-card uk-card-default uk-card-body">Item 1</div>
+      </div>
+      <div class="uk-flex-last">
+        <div class="uk-card uk-card-secondary uk-card-body">Item 2</div>
+      </div>
+      <div>
+        <div class="uk-card uk-card-default uk-card-body">Item 3</div>
+      </div>
+      <div>
+        <div class="uk-card uk-card-default uk-card-body">Item 4</div>
+      </div>
+      <div class="uk-flex-first">
+        <div class="uk-card uk-card-primary uk-card-body">Item 5</div>
+      </div>
+      <div>
+        <div class="uk-card uk-card-default uk-card-body">Item 6</div>
+      </div>
+    </div>  -->
     <script
       src="https://code.jquery.com/jquery-3.5.1.min.js"
       integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
       crossorigin="anonymous"
     ></script>
-    <!-- UIkit JS -->
-    <script src="https://cdn.jsdelivr.net/npm/uikit@3.4.4/dist/js/uikit.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/uikit@3.4.4/dist/js/uikit-icons.min.js"></script>
-    <script src="/assets/script.js">
-
-
-
-
-      // an input to allow the suer to search for the city
-      // grab the users input and tore it in a variable (userSearch)
-      //create a function that get the current weather  (current weater data call)
-      // dynamically generate current wether div
-      //inside of that you're goint to generate the city, date, temp, humidity, wind speed
-
-      //if you're going to call the ght getUVindex fuctionto generat the UV index element:
-
-      //create 5daysforecast function
-      // include the dates, temp, humidity
-      // dynamically generated using JS
-      // using bs cards generate a card that includes <p>, <img>, <h2>, <icon>
-
-      // store user search in local storage
-      // on page load, grab from local storage - grab the most recent search
-      // if the users search exstin local storage, do't append a new one to the searches, just grab from local storage
-      // in the getCurrentWeather function, check local storage for previous searches
-
-      // you'll need at least 3 different functions: get current weather, get 5 days forecast, get uv index
-    </script>
+    <script src="./assets/script.js"></script>
   </body>
 </html>

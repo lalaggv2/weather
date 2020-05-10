@@ -18,87 +18,67 @@
 // WHEN I open the weather dashboard
 // THEN I am presented with the last searched city forecast
 
-      //var userLocation = $("#user-location");
-      $("#user-search").on("click", function (event) {
-        event.preventDefault();
+var apiKey = "02d40ed26b4d772b862c1e7d6d86ac72";
 
-        //   $("#user-state").on("click", function (event) {
-        //  event.preventDefault();
+$("#userSearch").on("submit", function (event) {
+  event.preventDefault();
 
-        var cityName = $("#user-location").val();
-        var state = $("#user-state").val();
-        var apiKey = "02d40ed26b4d772b862c1e7d6d86ac72";
-        var weatherURL = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName},${state},US&appid=${apiKey}`;
+  //   $("#user-state").on("click", function (event) {
+  //  event.preventDefault();
 
-        //      `https://api.openweathermap.org/data/2.5/weather?q=Boston,MA&appid=${apiKey}`;
+  //get form values
+  var cityName = $("#user-location").val();
+  var state = $("#user-state").val();
+  getCurrentWeather(cityName, state);
+});
 
-        //var queryURL = `https://api.openweathermap.org/data/2.5/weather?q=Bujumbura,Burundi&appid=${apiKey}`;
+function getCurrentWeather(cityName, state) {
+  var weatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityName},${state},US&appid=${apiKey}&units=imperial`;
 
-        $.ajax({
-          url: weatherURL,
-          method: "GET",
-        }).then(function (response) {
-          //$('#userSearch').text(JSON.stringify(response));
-          //console.log(weatherURL);
-          console.log(response);
-        });
-// var userLocation = $("#user-location");
-// var state = $("#user-state");
-// var apiKey = "02d40ed26b4d772b862c1e7d6d86ac72";
-// var weatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${userLocation},${state}&appid=${apiKey}`;
-// //var queryURL = `https://api.openweathermap.org/data/2.5/weather?q=Bujumbura,Burundi&appid=${APIKey}`;
-// //var url = "https://jsonplaceholder.typicode.com/todos";
-// $.ajax({
-//   url: weatherURL,
-//   method: "GET",
-// }).then(function (response) {
-//   //$('#userSearch').text(JSON.stringify(response));
-//   //console.log(weatherURL);
-//   console.log(response);
-// });
+  $.ajax({
+    url: weatherURL,
+    method: "GET",
+  }).then(function (response) {
+    console.log(response);
 
-
-//var userSearch = $(InputEvent)
-
-// $.get(url).then(function (response) {
-//     console.log(response);
-//})
-
-function renderButtons() {
-  movies.forEach(function (movie) {
-    var movieBtn = $("<button>", {
-      class: 'movie',
-      "data-name": movie,
-    }).text(movie);
-
-    $('buttons-view').append(moviesBtn);
-
+    // update city weather information
+    var lat = response.coord.lat;
+    var lon = response.coord.lon;
+    $(".city").text(`City: ${response.name}`);
+    $(".wind").text(`Wind: ${response.wind.speed} mph`);
+    $(".humidity").text(`Humidity: ${response.main.humidity}`);
+    $(".temp").text(`Temperature: ${response.main.temp}`);
+    getUVIndex(lat, lon);
+    get5DayForecast(cityName, state);
   });
+}
 
-  var row = $("<div class='row'>");
-    var hour = $(`<div class= "col-md-2">`);
-    var task = $(`<input id=${i} class="todo-item col-md-6">`);
-    var save = $(`<button id='save' class= "col-md-1" data-hour=${i}>`);
-var city = response.name;
-    var wind = $(`<div class= "col-md-2", response.wind.speed>`) ;
-    var humidity = response.main.humidity;
-    var temp = response.main.temp;
-    var tempinF = Math.round((temp * 9) / 5 - 459.67);
-    $('.city').text(`City: ${city}`);
-    $('.wind').text(`Wind: ${wind}`);
-    4('.humidity').text(`Humidity: ${humidity}`);
+function getUVIndex(lat, lon) {
+  $.get(
+    `http://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}`,
+    function (response) {
+      $(".uv").text(`UV Index: ${response.value}`);
+    }
+  );
+}
 
+function get5DayForecast(cityName, state) {
+  var weatherURL = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName},${state},US&appid=${apiKey}&units=imperial`;
 
-// an input to allow the suer to search for the city
-// grab the users input and tore it in a variable (userSearch)
-//create a function that get the current weather  (current weater data call)
-/*dynamically generate current wether div
+  $.ajax({
+    url: weatherURL,
+    method: "GET",
+  }).then(function (response) {
+    console.log(response);
+
+    // update 5day forecast weather information
+  });
+}
+
+/*
 inside of that you're goint to generate the city, date, temp, humidity, wind speed
 
-you'll need at least 3 different functions: get current weather, get 5 days forecast, get uv index
-
-if you're going to call the ght getUVindex fuctionto generat the UV index element:
-
+get weather icon (is it in the response?)
 create 5daysforecast function
 include the dates, temp, humidity
 dynamically generated using JS
@@ -108,10 +88,3 @@ store user search in local storage
 on page load, grab from local storage - grab the most recent search
 if the users search exstin local storage, do't append a new one to the searches, just grab from local storage
 in the getCurrentWeather function, check local storage for previous searches */
-
-function getUVIndex(lat, lon) {
-  var APIKey = your api key
-  $.get(`http://api.openweathermap.org/data/2.5/uvi?appid={APIKey}&lat={lat}&lon={lon}`), function (response)
-}
-var lat = response.city.coord.lat;
-var lon = response.city.coord.lon;

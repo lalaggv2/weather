@@ -98,43 +98,43 @@
       crossorigin="anonymous"
     ></script>
     <script>
-              //var userLocation = $("#user-location");
-              $("#user-search").on("click", function (event) {
-                event.preventDefault();
+      //var userLocation = $("#user-location");
+      $("#user-search").on("click", function (event) {
+        event.preventDefault();
 
-                //   $("#user-state").on("click", function (event) {
-                //  event.preventDefault();
+        //   $("#user-state").on("click", function (event) {
+        //  event.preventDefault();
 
-                var cityName = $("#user-location").val();
-                var state = $("#user-state").val();
-                var apiKey = "02d40ed26b4d772b862c1e7d6d86ac72";
-                var weatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityName},${state},US&appid=${apiKey}`;
+        var cityName = $("#user-location").val();
+        var state = $("#user-state").val();
+        var apiKey = "02d40ed26b4d772b862c1e7d6d86ac72";
+        var weatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityName},${state},US&appid=${apiKey}`;
 
-                $.ajax({
-                  url: weatherURL,
-                  method: "GET",
-                }).then(function (response) {
-                  //$('#userSearch').text(JSON.stringify(response));
-                  //console.log(weatherURL);
-                  console.log(response);
-                  var wind = $(`<div class= "col-md-2", response.wind.speed>`);
-                    var lat = response.city.coord.lat;
-                    var lon = response.city.coord.lon;
-                });
-              });
-              var city = response.name;
+        $.ajax({
+          url: weatherURL,
+          method: "GET",
+        }).then(function (response) {
+          //$('#userSearch').text(JSON.stringify(response));
+          //console.log(weatherURL);
+          console.log(response);
+          var wind = $(`<div class= "col-md-2", response.wind.speed>`);
+          var lat = response.city.coord.lat;
+          var lon = response.city.coord.lon;
+        });
+      });
+
+      var city = response.name;
       var wind = response.wind.speed;
       var humidity = response.main.humidity;
       var temp = response.main.temp;
       var tempinF = Math.round((temp * 9) / 5 - 459.67);
-      $('.city').text(`City: ${city}`);
-      $('.wind').text(`Wind: ${wind}`);
-      4('.humidity').text(`Humidity: ${humidity}`)
+      $(".city").text(`City: ${city}`);
+      $(".wind").text(`Wind: ${wind}`);
+      4(".humidity").text(`Humidity: ${humidity}`);
 
-
-          function getUVIndex(lat, lon) {
-          $.get(`http://api.openweathermap.org/data/2.5/uvi?appid={APIKey}&lat={lat}&lon={lon}`), function (response)
-        }
+      function getUVIndex(lat, lon) {
+        // $.get(`http://api.openweathermap.org/data/2.5/uvi?appid={APIKey}&lat={lat}&lon={lon}`), function (response)
+      }
     </script>
   </body>
 </html>

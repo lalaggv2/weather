@@ -19,12 +19,10 @@
 // THEN I am presented with the last searched city forecast
 
 var apiKey = "02d40ed26b4d772b862c1e7d6d86ac72";
+//const today = moment().format("MM-DD-YY");
 
 $("#userSearch").on("submit", function (event) {
   event.preventDefault();
-
-  //   $("#user-state").on("click", function (event) {
-  //  event.preventDefault();
 
   //get form values
   var cityName = $("#user-location").val();
@@ -39,12 +37,11 @@ function getCurrentWeather(cityName, state) {
     url: weatherURL,
     method: "GET",
   }).then(function (response) {
-    console.log(response);
-
     // update city weather information
     var lat = response.coord.lat;
     var lon = response.coord.lon;
-    $(".city").text(`City: ${response.name}`);
+    $(".city").text(`${response.name}`);
+    $(".date").text(`Date: ${moment().format("MMM Do YY")}`);
     $(".wind").text(`Wind: ${response.wind.speed} mph`);
     $(".humidity").text(`Humidity: ${response.main.humidity}`);
     $(".temp").text(`Temperature: ${response.main.temp}`);
@@ -58,7 +55,7 @@ function getUVIndex(lat, lon) {
     `http://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}`,
     function (response) {
       $(".uv").text(`UV Index: ${response.value}`);
-    }
+    } //(<span class="uk-badge">1</span>),
   );
 }
 
@@ -72,6 +69,16 @@ function get5DayForecast(cityName, state) {
     console.log(response);
 
     // update 5day forecast weather information
+    for (var i = 0; i < 5; i++) {
+      var date5 = $(".date5").text(`Date: ${response.list[i].clouds.dt_txt}`);
+      //var icon = $(".icon").text(`${response.list[i].weather.icon}`);
+      var humidity5 = $(".humidity5").text(
+        `Humidity: ${response.list[i].main.humidity}`
+      );
+      var temp5 = $(".temp5").text(
+        `Temperature: ${response.list[i].main.temp}`
+      );
+    }
   });
 }
 
@@ -88,3 +95,8 @@ store user search in local storage
 on page load, grab from local storage - grab the most recent search
 if the users search exstin local storage, do't append a new one to the searches, just grab from local storage
 in the getCurrentWeather function, check local storage for previous searches */
+
+function saveWeatherSearch(cityName, state) {
+  userSearch[search] = cityName;
+  localStorage.setItem(search, JSON.stringify(userSearch));
+}

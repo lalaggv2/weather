@@ -70,15 +70,16 @@ function get5DayForecast(cityName, state) {
 
     // update 5day forecast weather information
     for (var i = 0; i < 5; i++) {
-      var date5 = $(".date5").text(`Date: ${response.list[i].clouds.dt_txt}`);
-      //var icon = $(".icon").text(`${response.list[i].weather.icon}`);
-      var humidity5 = $(".humidity5").text(
+      var daysCard = $("<div>");
+      var date5 = $("<p>").text(`Date: ${response.list[i].clouds.dt_txt}`);
+      var icon = $("<img>").text(`${response.list[i].weather.icon}`);
+      var humidity5 = $("<p>").text(
         `Humidity: ${response.list[i].main.humidity}`
       );
-      var temp5 = $(".temp5").text(
-        `Temperature: ${response.list[i].main.temp}`
-      );
+      var temp5 = $("<p>").text(`Temperature: ${response.list[i].main.temp}`);
     }
+    daysCard.append(date5, icon, humidity5, temp5);
+    $("#daysCard").append(daysCard);
   });
 }
 
@@ -94,9 +95,9 @@ using bs cards generate a card that includes <p>, <img>, <h2>, <icon>
 store user search in local storage
 on page load, grab from local storage - grab the most recent search
 if the users search exstin local storage, do't append a new one to the searches, just grab from local storage
-in the getCurrentWeather function, check local storage for previous searches */
+in the getCurrentWeather function, check local storage for previous searches 
 
 function saveWeatherSearch(cityName, state) {
   userSearch[search] = cityName;
   localStorage.setItem(search, JSON.stringify(userSearch));
-}
+}*/

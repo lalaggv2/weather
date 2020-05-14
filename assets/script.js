@@ -19,7 +19,7 @@
 // THEN I am presented with the last searched city forecast
 
 var apiKey = "02d40ed26b4d772b862c1e7d6d86ac72";
-//const today = moment().format("MM-DD-YY");
+const today = moment().format("MM-DD-YY");
 
 $("#userSearch").on("submit", function (event) {
   event.preventDefault();
@@ -60,16 +60,17 @@ function getUVIndex(lat, lon) {
 }
 
 function get5DayForecast(cityName, state) {
-  var weatherURL = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName},${state},US&appid=${apiKey}&units=imperial`;
+  var forecastURL = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName},${state},US&appid=${apiKey}&units=imperial`;
 
   $.ajax({
-    url: weatherURL,
+    url: forecastURL,
     method: "GET",
   }).then(function (response) {
     console.log(response);
+    //var forecastList = ${response.list}
 
-    // update 5day forecast weather information
-    for (var i = 0; i < 5; i++) {
+    //update 5day forecast weather information
+    for (var i = 4; i < response.list.lenght; i + 8) {
       var daysCard = $("<div>");
       var date5 = $("<p>").text(`Date: ${response.list[i].clouds.dt_txt}`);
       var icon = $("<img>").text(`${response.list[i].weather.icon}`);
@@ -78,26 +79,8 @@ function get5DayForecast(cityName, state) {
       );
       var temp5 = $("<p>").text(`Temperature: ${response.list[i].main.temp}`);
     }
-    daysCard.append(date5, icon, humidity5, temp5);
+  (daysCard.append(date5, icon, humidity5, temp5);
     $("#daysCard").append(daysCard);
   });
 }
-
-/*
-inside of that you're goint to generate the city, date, temp, humidity, wind speed
-
-get weather icon (is it in the response?)
-create 5daysforecast function
-include the dates, temp, humidity
-dynamically generated using JS
-using bs cards generate a card that includes <p>, <img>, <h2>, <icon>
-
-store user search in local storage
-on page load, grab from local storage - grab the most recent search
-if the users search exstin local storage, do't append a new one to the searches, just grab from local storage
-in the getCurrentWeather function, check local storage for previous searches 
-
-function saveWeatherSearch(cityName, state) {
-  userSearch[search] = cityName;
-  localStorage.setItem(search, JSON.stringify(userSearch));
-}*/
+//api.openweathermap.org/data/2.5/forecast/daily?q={city name},{state}&cnt={cnt}&appid={your api key}

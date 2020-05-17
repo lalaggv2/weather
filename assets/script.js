@@ -73,8 +73,17 @@ function getUVIndex(lat, lon) {
   $.get(
     `http://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}`,
     function (response) {
-      $(".uv").text(`UV Index: ${response.value}`);
-    } //(<span class="uk-badge">1</span>),
+      var uvIndexDisplay = $(".uv").text(`UV Index: ${response.value}`);
+
+      var uvIndex = response.value;
+      if (uvIndex < 5) {
+        uvIndexDisplay.css("background-color", "limegreen");
+      } else if (uvIndex > 10) {
+        uvIndexDisplay.css("background-color", "magenta");
+      } else {
+        uvIndexDisplay.css("background-color", "orange");
+      }
+    }
   );
 }
 

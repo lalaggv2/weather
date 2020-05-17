@@ -41,8 +41,12 @@ function getCurrentWeather(cityName, state) {
     var lat = response.coord.lat;
     var lon = response.coord.lon;
     let cities = localStorage.getItem("cities");
-
+    console.log(response);
     $(".city").text(`${response.name}`);
+    var icon = $("<img>").attr(
+      "src",
+      `http://openweathermap.org/img/wn/${response.weather[0].icon}.png`
+    );
     $(".date").text(`Date: ${moment().format("MMM Do YY")}`);
     $(".wind").text(`Wind: ${response.wind.speed} mph`);
     $(".humidity").text(`Humidity: ${response.main.humidity}`);
@@ -81,13 +85,11 @@ function get5DayForecast(cityName, state) {
     url: forecastURL,
     method: "GET",
   }).then(function (response) {
-    console.log(response);
-
     $("#5days").text("");
     const forecast = response.list.filter((x) => {
       return x.dt_txt.includes("12:00:00");
     });
-    console.log(forecast);
+
     //update 5day forecast weather information
     for (var i = 0; i < forecast.length; i++) {
       var dayCard = $("<div>");

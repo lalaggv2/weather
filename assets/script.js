@@ -40,6 +40,8 @@ function getCurrentWeather(cityName, state) {
     // update city weather information
     var lat = response.coord.lat;
     var lon = response.coord.lon;
+    let cities = localStorage.getItem("cities");
+
     $(".city").text(`${response.name}`);
     $(".date").text(`Date: ${moment().format("MMM Do YY")}`);
     $(".wind").text(`Wind: ${response.wind.speed} mph`);
@@ -47,6 +49,19 @@ function getCurrentWeather(cityName, state) {
     $(".temp").text(`Temperature: ${response.main.temp}`);
     getUVIndex(lat, lon);
     get5DayForecast(cityName, state);
+
+    //save to local storage
+    if (cities) {
+      cities = JSON.parse(cities);
+      //check if city and stat exist in the array
+      cities.push({ city: cityName, state: state });
+      localStorage.setItem("cities", JSON.stringify(cities));
+      loadCities();
+    } else {
+      cities = [];
+      cities.push({ city: cityName, state: state });
+      localStorage.setItem("cities", JSON.stringify(cities));
+    }
   });
 }
 
@@ -67,20 +82,51 @@ function get5DayForecast(cityName, state) {
     method: "GET",
   }).then(function (response) {
     console.log(response);
-    //var forecastList = ${response.list}
 
+    $("#5days").text("");
+    const forecast = response.list.filter((x) => {
+      return x.dt_txt.includes("12:00:00");
+    });
+    console.log(forecast);
     //update 5day forecast weather information
-    for (var i = 4; i < response.list.lenght; i + 8) {
-      var daysCard = $("<div>");
-      var date5 = $("<p>").text(`Date: ${response.list[i].clouds.dt_txt}`);
-      var icon = $("<img>").text(`${response.list[i].weather.icon}`);
-      var humidity5 = $("<p>").text(
-        `Humidity: ${response.list[i].main.humidity}`
+    for (var i = 0; i < forecast.length; i++) {
+      var dayCard = $("<div>");
+      var date = $("<p>").text(`Date: ${forecast[i].dt_txt}`);
+      var icon = $("<img>").attr(
+        "src",
+        `http://openweathermap.org/img/wn/${forecast[i].weather[0].icon}.png`
       );
-      var temp5 = $("<p>").text(`Temperature: ${response.list[i].main.temp}`);
+      var humidity = $("<p>").text(`Humidity: ${forecast[i].main.humidity}`);
+      var temp = $("<p>").text(`Temperature: ${forecast[i].main.temp}`);
+      //append items to html
+      dayCard.append(date, icon, humidity, temp);
+      $("#5days").append(dayCard);
+      // }
+      //});
     }
-  (daysCard.append(date5, icon, humidity5, temp5);
-    $("#daysCard").append(daysCard);
   });
 }
-//api.openweathermap.org/data/2.5/forecast/daily?q={city name},{state}&cnt={cnt}&appid={your api key}
+
+//getting items from local storage
+function loadCities() {
+  $("#prevSearch").text("");
+  let cities = localStorage.getItem("cities");
+  if (cities) {
+    cities = JSON.parse(cities);
+    for (var i = 0; i < cities.length; i++) {
+      //iterate over each city and display button on page
+      cityBtn = $("<button>").text(`${cities[i].city}, ${cities[i].state}`);
+      cityBtn.attr("data-city", cities[i].city);
+      cityBtn.attr("data-state", cities[i].state);
+      cityBtn.on("click", function (e) {
+        getCurrentWeather(
+          $(this).attr("data-city"),
+          $(this).attr("data-state")
+        );
+      });
+      $("#prevSearch").append(cityBtn);
+    }
+  }
+}
+
+loadCities();

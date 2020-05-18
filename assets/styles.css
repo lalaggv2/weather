@@ -24,14 +24,20 @@ body {
   background-color: rgb(59, 163, 59);
 }
 
+.uk-card-default {
+  background-color: turquoise;
+}
+
 .uk-card {
   margin: 10px;
 }
 
-.5days {
-  margin-left: 20px;
+#copyright {
+  text-align: center;
+  color: white;
+  background-color: forestgreen;
 }
 
-.uk-first-column {
-  padding: 0, 20px;
+#card5 {
+  background-color: aqua;
 }

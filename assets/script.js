@@ -27,7 +27,11 @@ $("#userSearch").on("submit", function (event) {
   //get form values
   var cityName = $("#user-location").val();
   var state = $("#user-state").val();
-  getCurrentWeather(cityName, state);
+  if (cityName.length > 3) {
+    getCurrentWeather(cityName, state);
+  }
+  $("#user-location").val("");
+  $("#user-state").val("");
 });
 
 function getCurrentWeather(cityName, state) {
@@ -41,7 +45,6 @@ function getCurrentWeather(cityName, state) {
     var lat = response.coord.lat;
     var lon = response.coord.lon;
     let cities = localStorage.getItem("cities");
-    console.log(response);
     $(".city").text(`${response.name}`);
     var icon = $("<img>").attr(
       "src",
@@ -53,18 +56,25 @@ function getCurrentWeather(cityName, state) {
     $(".temp").text(`Temperature: ${response.main.temp}`);
     getUVIndex(lat, lon);
     get5DayForecast(cityName, state);
-
+    console.log(cities);
     //save to local storage
-    if (cities) {
+    //if (cities) {
+    if (cities.indexOf(cityName) === -1) {
+      console.log("something");
       cities = JSON.parse(cities);
       //check if city and stat exist in the array
+      // if (cities.length > 4) {
+      //   cities.shift();
+      // } // ONLY STORE FIVE PREVIOUS SEARCHES
       cities.push({ city: cityName, state: state });
       localStorage.setItem("cities", JSON.stringify(cities));
       loadCities();
-    } else {
-      cities = [];
-      cities.push({ city: cityName, state: state });
-      localStorage.setItem("cities", JSON.stringify(cities));
+      // }
+      // } else {
+      //   cities = [];
+      //   console.log(cities);
+      //   cities.push({ city: cityName, state: state });
+      //   localStorage.setItem("cities", JSON.stringify(cities));
     }
   });
 }
@@ -124,7 +134,7 @@ function loadCities() {
   let cities = localStorage.getItem("cities");
   if (cities) {
     cities = JSON.parse(cities);
-    for (var i = 0; i < cities.length; i++) {
+    for (var i = cities.length - 1; i > 0; i--) {
       //iterate over each city and display button on page
       cityBtn = $("<button>").text(`${cities[i].city}, ${cities[i].state}`);
       cityBtn.attr("data-city", cities[i].city);

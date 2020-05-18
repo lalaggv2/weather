@@ -12,3 +12,9 @@ The UIKit interface is simple and I found it responsive. It doesn't have a lot o
 The Weather Dashboard functionality is also simple and straightforward: You want to find the current weather for a given location. The dashboard offers an input field to add the city name. Just adding the name and pressing enter will give you the results, but in the case of cities with the same name in different states, there is the option to input the state in the state field.
 
 The previous searches are stored in local storage, making it easy to search a city again without having to input the name. Just press the button with the name of the city and the current weather, along with the 5 days forecast, gets refreshed.
+
+![Before searching](/assets/imgs/before-search.jpg);
+
+![First search](/assets/imgs/search1.jpg);
+
+![5 days forecast](/assets/imgs/5days.jpg);

@@ -56,25 +56,18 @@ function getCurrentWeather(cityName, state) {
     $(".temp").text(`Temperature: ${response.main.temp}`);
     getUVIndex(lat, lon);
     get5DayForecast(cityName, state);
-    console.log(cities);
+
     //save to local storage
-    //if (cities) {
+
     if (cities.indexOf(cityName) === -1) {
-      console.log("something");
       cities = JSON.parse(cities);
-      //check if city and stat exist in the array
-      // if (cities.length > 4) {
-      //   cities.shift();
-      // } // ONLY STORE FIVE PREVIOUS SEARCHES
+      // check if city and stat exist in the array
+      if (cities.length > 4) {
+        cities.shift();
+      } // ONLY STORE FIVE PREVIOUS SEARCHES
       cities.push({ city: cityName, state: state });
       localStorage.setItem("cities", JSON.stringify(cities));
       loadCities();
-      // }
-      // } else {
-      //   cities = [];
-      //   console.log(cities);
-      //   cities.push({ city: cityName, state: state });
-      //   localStorage.setItem("cities", JSON.stringify(cities));
     }
   });
 }
@@ -136,7 +129,9 @@ function loadCities() {
     cities = JSON.parse(cities);
     for (var i = cities.length - 1; i > 0; i--) {
       //iterate over each city and display button on page
-      cityBtn = $("<button>").text(`${cities[i].city}, ${cities[i].state}`);
+      cityBtn = $("<button class='searched'>").text(
+        `${cities[i].city}, ${cities[i].state}`
+      );
       cityBtn.attr("data-city", cities[i].city);
       cityBtn.attr("data-state", cities[i].state);
       cityBtn.on("click", function (e) {

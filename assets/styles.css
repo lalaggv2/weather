@@ -1,20 +1,21 @@
 body {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-size: medium;
+  background-image: url(./imgs/backg.jpg);
   background-color: #b9f5b9;
 }
 
 #title {
   font-size: 45px;
-  background-color: rgb(54, 126, 54);
-  text-decoration-color: yellow;
+  /* background-color: rgb(54, 126, 54); */
+  color: rgb(241, 177, 75);
   text-align: center;
   margin: 20px;
   padding: 10px;
 }
 
 .uk-card-primary {
-  background-color: rgb(59, 163, 59);
+  background-color: rgba(59, 163, 59, 0.75);
 }
 
 .uk-card {
@@ -30,5 +31,9 @@ body {
 button {
   background-color: rgba(54, 167, 82, 0.849);
   font-size: 15px;
-  color: black;
+  color: rgb(255, 211, 16);
+}
+
+p {
+  color: lightsalmon;
 }

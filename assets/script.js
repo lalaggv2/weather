@@ -27,7 +27,7 @@ $("#userSearch").on("submit", function (event) {
   //get form values
   var cityName = $("#user-location").val();
   var state = $("#user-state").val();
-  if (cityName.length > 3) {
+  if (cityName.length > 2) {
     getCurrentWeather(cityName, state);
   }
   $("#user-location").val("");
@@ -42,6 +42,7 @@ function getCurrentWeather(cityName, state) {
     method: "GET",
   }).then(function (response) {
     // update city weather information
+
     var lat = response.coord.lat;
     var lon = response.coord.lon;
     let cities = localStorage.getItem("cities");

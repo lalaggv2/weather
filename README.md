@@ -13,8 +13,6 @@ The Weather Dashboard functionality is also simple and straightforward: You want
 
 The previous searches are stored in local storage, making it easy to search a city again without having to input the name. Just press the button with the name of the city and the current weather, along with the 5 days forecast, gets refreshed.
 
-![Before searching](/assets/imgs/before-search.jpg);
+https://github.com/lalaggv2/weatherapp/issues/1
 
-![First search](/assets/imgs/search1.jpg);
-
-![5 days forecast](/assets/imgs/5days.jpg);
+https://github.com/lalaggv2/weatherapp/issues/2

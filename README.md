@@ -15,3 +15,5 @@ The previous searches are stored in local storage, making it easy to search a ci
 
 https://github.com/lalaggv2/weatherapp/issues/1
 
+https://github.com/lalaggv2/weatherapp/issues/2
+

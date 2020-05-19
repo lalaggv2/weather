@@ -65,7 +65,7 @@ function getCurrentWeather(cityName, state) {
       // check if city and stat exist in the array
       if (cities.length > 4) {
         cities.shift();
-      } // ONLY STORE FIVE PREVIOUS SEARCHES
+      } // limiting the number of previous searches in the page
       cities.push({ city: cityName, state: state });
       localStorage.setItem("cities", JSON.stringify(cities));
       loadCities();
